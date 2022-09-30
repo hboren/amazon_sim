@@ -1,7 +1,7 @@
 <products>
 book
 Data Abstraction & Problem Solving with C++
-79.99
+79.999
 20
 978-013292372-9
 Carrano and Henry
@@ -23,6 +23,12 @@ Hidden Figures DVD
 1
 Drama
 PG
+movie
+I love data
+15.99
+6
+Documentary
+R
 </products>
 <users>
 aturing 100.00 0
