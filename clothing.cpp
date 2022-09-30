@@ -51,9 +51,13 @@ std::string Clothing::displayString() const{
 	/* <name>
 		 Size: <size> Brand: <brand>
 		 <price> <quantity> left.*/
+	double rounded_price = ((double)((int)(price_ * 100 + .5)))/100;
+
+  std::string price_string = std::to_string(rounded_price);
+  std::string final_price = price_string.substr(0, price_string.find(".")+3);
 	std::string display;
 	display = name_ + '\n' + "Size: " + size_;
-	display += " Brand: " + brand_ + '\n' + std::to_string(price_) + " ";
+	display += " Brand: " + brand_ + '\n' + final_price + " ";
 	display += std::to_string(qty_) + " left.";
 
 	return display;

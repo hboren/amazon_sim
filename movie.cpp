@@ -49,9 +49,13 @@ std::string Movie::displayString() const{
 	/*<name>
 	Genre: <genre> Rating: <rating>
 	<price> <quantity> left.*/
+	double rounded_price = ((double)((int)(price_ * 100 + .5)))/100;
+  std::string price_string = std::to_string(rounded_price);
+  std::string final_price = price_string.substr(0, price_string.find(".")+3);
+
 	std::string display;
 	display = name_ + '\n' + "Genre: " + genre_;
-	display += " Rating: " + rating_ + '\n' + std::to_string(price_) + " ";
+	display += " Rating: " + rating_ + '\n' + final_price + " ";
 	display += std::to_string(qty_) + " left.";
 
 	return display;

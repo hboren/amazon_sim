@@ -9,6 +9,8 @@
 #include "db_parser.h"
 #include "product_parser.h"
 #include "util.h"
+#include "mydatastore.h"
+#include "datastore.h"
 
 using namespace std;
 struct ProdNameSorter {
@@ -29,7 +31,7 @@ int main(int argc, char* argv[])
      * Declare your derived DataStore object here replacing
      *  DataStore type to your derived type
      ****************/
-    DataStore ds;
+    MyDataStore ds;
 
 
 
@@ -70,6 +72,7 @@ int main(int argc, char* argv[])
         stringstream ss(line);
         string cmd;
         if((ss >> cmd)) {
+            //call intersection version of search 
             if( cmd == "AND") {
                 string term;
                 vector<string> terms;
@@ -80,6 +83,7 @@ int main(int argc, char* argv[])
                 hits = ds.search(terms, 0);
                 displayProducts(hits);
             }
+            //call union version of search
             else if ( cmd == "OR" ) {
                 string term;
                 vector<string> terms;
@@ -90,25 +94,47 @@ int main(int argc, char* argv[])
                 hits = ds.search(terms, 1);
                 displayProducts(hits);
             }
+            //quit and save remaining data to new database file using dump
             else if ( cmd == "QUIT") {
                 string filename;
                 if(ss >> filename) {
-                    ofstream ofile(filename.c_str());
+										ofstream ofile(filename.c_str());
                     ds.dump(ofile);
                     ofile.close();
                 }
                 done = true;
             }
 	    /* Add support for other commands here */
-
-
-
+            //add hit to cart
+            else if( cmd == "ADD"){
+                string username;
+                int hit_num;
+                ss >> username;
+                ss >> hit_num;
+                if(ss.fail()){
+                    cout << "Invalid command" << endl;
+                }
+                ds.add_to_cart(username, hit_num, hits);
+            }
+            //view current cart
+            else if( cmd == "VIEWCART"){
+                string username;
+                if(ss >> username){
+                    ds.view_cart(username);
+                }
+            }
+            //buy everything possible in cart
+            else if( cmd == "BUYCART"){
+                string username;
+                if(ss>>username){
+                    ds.buy_cart(username);
+                }
+            }
 
             else {
                 cout << "Unknown command" << endl;
             }
         }
-
     }
     return 0;
 }
