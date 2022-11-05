@@ -19,3 +19,5 @@ db_parser.o
 mydatastore.o
 product.o
 user.o
+hw2_tests.tar.gz
+hw2_tests/
