@@ -173,7 +173,7 @@ void MyDataStore::view_cart(std::string username){
 	std::map<std::string, std::queue<Product*>>::iterator it = user_to_carts.find(username);
 	if (it == user_to_carts.end()) // username does not exist
 	{
-		cout << "Invalid Request";
+		cout << "Invalid Username";
 	}
 	else{
 		temp_cart = user_to_carts[username];
@@ -182,7 +182,7 @@ void MyDataStore::view_cart(std::string username){
 	while (!temp_cart.empty())//iterate over temp cart, display each item and pop to access next item
     {
         Product* front = temp_cart.front();
-				cout << i << endl;
+				cout << "Item " << i << endl;
 				cout << (front)->displayString() << endl << endl;
         temp_cart.pop();
 				i++;
@@ -203,7 +203,7 @@ void MyDataStore::buy_cart(std::string username){
 	std::map<std::string, std::queue<Product*>>::iterator it = user_to_carts.find(username);
 	if (it == user_to_carts.end()) // username does not exist
 	{
-		cout << "Invalid Request";
+		cout << "Invalid Username";
 	}
 	//else if username does exist
 	else{
